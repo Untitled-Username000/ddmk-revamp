@@ -24,8 +24,8 @@ const PATH_STB    = "ThirdParty/stb";
 
 const LOCATION_ZLIB          = "zlib.lib";
 const LOCATION_LIBZIP        = "libzip.lib";
-const LOCATION_HDC           = "D:/__STEAM__/steamapps/common/Devil May Cry HD Collection";
-const LOCATION_4             = "D:/__STEAM__/steamapps/common/Devil May Cry 4";
+const LOCATION_HDC			 = "F:/Games/Devil May Cry HD Collection Dodi";
+const LOCATION_4			 = "F:/Games/Devil May Cry 4";
 const LOCATION_LOADER_X86_64 = LOCATION_HDC + "/dinput8.dll";
 const LOCATION_LOADER_X86_32 = LOCATION_4   + "/dinput8.dll";
 const LOCATION_EVA           = LOCATION_HDC + "/Eva.dll";
@@ -112,9 +112,9 @@ function LoadConfig()
 
 // #region Env
 
-const VISUAL_STUDIO_YEAR    = "2019";
-const VISUAL_STUDIO_EDITION = "Community";
-const VISUAL_STUDIO_PATH    = "C:/Program Files (x86)/Microsoft Visual Studio/" + VISUAL_STUDIO_YEAR + "/" + VISUAL_STUDIO_EDITION;
+const VISUAL_STUDIO_YEAR    = "2022";
+const VISUAL_STUDIO_EDITION = "Enterprise";
+const VISUAL_STUDIO_PATH =  "D:\Programs\Visual Studio 2022 " + VISUAL_STUDIO_YEAR + " " + VISUAL_STUDIO_EDITION + "\\";
 
 
 
