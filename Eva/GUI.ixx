@@ -1724,6 +1724,7 @@ void Training()
 
 
 
+
 		if (GUI_ResetButton())
 		{
 			ResetConfig(infiniteHitPoints);
@@ -2945,32 +2946,6 @@ void Main()
 }
 
 #pragma endregion
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
