@@ -112,10 +112,9 @@ function LoadConfig()
 
 // #region Env
 
-const VISUAL_STUDIO_YEAR    = "2022";
+const VISUAL_STUDIO_YEAR = "2022";
 const VISUAL_STUDIO_EDITION = "Enterprise";
-const VISUAL_STUDIO_PATH =  "D:\Programs\Visual Studio 2022 " + VISUAL_STUDIO_YEAR + " " + VISUAL_STUDIO_EDITION + "\\";
-
+const VISUAL_STUDIO_PATH = "D:/Programs/Visual Studio 2022 Enterprise";
 
 
 /*
@@ -140,7 +139,7 @@ const MSVC_LIB_PATH     = MSVC_PATH + "/" + MSVC_VERSION + "/lib";
 10.0.19041.0
 */
 
-const WSDK_VERSION      = "10.0.18362.0";
+const WSDK_VERSION      = "10.0.19041.0";
 const WSDK_PATH         = "C:/Program Files (x86)/Windows Kits/10";
 const WSDK_INCLUDE_PATH = WSDK_PATH + "/Include/" + WSDK_VERSION;
 const WSDK_LIB_PATH     = WSDK_PATH + "/Lib/"     + WSDK_VERSION;
