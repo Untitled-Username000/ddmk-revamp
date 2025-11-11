@@ -39,9 +39,6 @@ bool visibleMain     = false;
 bool lastVisibleMain = false;
 
 
-bool visibleDMCRevamp = false;
-bool lastVisibleDMCRevamp = false;
-
 
 #pragma region Common
 
@@ -2001,14 +1998,6 @@ void TrainingSection()
 
 #pragma endregion
 
-
-
-
-
-
-
-
-
 #pragma region Teleporter
 
 void Teleporter()
@@ -2464,38 +2453,6 @@ void Main()
 
 
 
-#pragma region DMCRevamp
-
-
-void DMCRevamp()
-{
-
-	if (!g_showMain)
-	{
-		return;
-	}
-
-
-	static bool run = false;
-
-
-	if (!run)
-	{
-		run = true;
-
-
-		constexpr float width = 600;
-		constexpr float height = 650;
-
-		ImGui::SetNextWindowSize(ImVec2(width, height));
-	}
-
-}
-
-
-#pragma endregion
-
-
 export void GUI_Render()
 {
 	::GUI::id = 0;
@@ -2512,6 +2469,7 @@ export void GUI_Render()
 
 	Bars();
 
+	DMCRevamp();
 
 
 	HandleKeyBindings
@@ -2551,8 +2509,3 @@ export void GUI_Init()
 	Actor_UpdateIndices();
 	Arcade_UpdateIndices();
 }
-
-
-
-
-
