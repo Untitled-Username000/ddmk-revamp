@@ -8,7 +8,7 @@ export module GUI;
 import Core;
 import Core_GUI;
 import Core_ImGui;
-import GUI_DMCR.ixx;
+import GUI_DMCR;
 
 
 #include "../Core/Macros.h"

@@ -3314,6 +3314,7 @@ let itemsKyrie =
 		["Kyrie/Scene.ixx", "", false, []],
 		["GlobalBase.ixx", "", false, []],
 		["GUIBase.ixx", "", false, []],
+		["Kyrie/GUI_DMCR.ixx", "", false, []],
 		["Kyrie/GUI.ixx", "", true, []],
 		["HooksBase.ixx", "", false, []],
 		["Kyrie/Hooks.ixx", "", false, []],
