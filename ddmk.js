@@ -144,7 +144,7 @@ let pathLocations_x86_64 =
 		"C:/Windows",
 		"C:/Windows/System32",
 		MSVC_PATH + "/" + MSVC_VERSION + "/bin/Hostx64/x64",
-		"C:/ProgramData/chocolatey/bin/sccache.exe"
+		"C:/ProgramData/chocolatey/bin"
 	];
 
 let includeLocations_x86_64 =
@@ -170,7 +170,7 @@ let pathLocations_x86_32 =
 		"C:/Windows",
 		"C:/Windows/System32",
 		MSVC_PATH + "/" + MSVC_VERSION + "/bin/Hostx64/x86",
-		"C:/ProgramData/chocolatey/bin/sccache.exe"
+		"C:/ProgramData/chocolatey/bin"
 	];
 
 let includeLocations_x86_32 =
