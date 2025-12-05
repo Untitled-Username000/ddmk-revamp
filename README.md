@@ -119,6 +119,22 @@ Open a terminal, navigate to the project directory and run:
 node run ddmk buildAll
 ```
 
+## Fast Iteration for Kyrie Module
+
+For faster iteration when working on the Kyrie module (DMC4), use the `fastKyrie` command:
+
+```
+node run ddmk fastKyrie
+```
+
+This command:
+- Skips the `Clean()` step to preserve compiled object files
+- Skips compilation of Core and ImGui dependencies (assumes they were built previously via `buildAll` or `buildKyrieFull`)
+- Only compiles and links the Kyrie module itself
+- Significantly reduces compilation time when making changes to Kyrie-specific code
+
+**Note:** You must run `node run ddmk buildAll` or `node run ddmk buildKyrieFull` at least once before using `fastKyrie` to ensure dependencies are compiled.
+
 
 
 # Credits
