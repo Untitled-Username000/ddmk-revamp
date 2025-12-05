@@ -4392,6 +4392,24 @@ let items =
 			BuildKyrieFull
 		],
 		[
+			"fastKyrie", function () {
+				console.log("Kyrie x86_32 (fast build)");
+				console.log("");
+
+				SetEnv("x86_32");
+
+				// Skip Clean() to preserve compiled dependencies
+				// Skip compiling Core and ImGui - assumes they were built previously
+				// Only compile and link Kyrie module
+
+				if (BuildKyrie()) {
+					return true;
+				}
+
+				return false;
+			}
+		],
+		[
 			"cleanPDBKyrie",
 			CleanPDBKyrie
 		],
