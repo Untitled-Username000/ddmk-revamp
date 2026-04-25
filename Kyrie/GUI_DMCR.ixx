@@ -1,4 +1,4 @@
-module GUI_DMCR;
+export module GUI_DMCR;
 #include "../ThirdParty/ImGui/imgui.h"
 #include "../ThirdParty/ImGui/imgui_internal.h"
 
@@ -51,7 +51,7 @@ void ToggleDMCRevamp() {
 }
 
 // The actual window
-void DMCRevamp() {
+export void DMCRevamp() {
   // FIX: Use visibleDMCRevamp instead of g_showMain
     if (!visibleDMCRevamp) {
         return;
