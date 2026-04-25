@@ -132,6 +132,15 @@ void DMCRevamp()
 			"Defensive",
 			"Arcade"
 		};
+		constexpr int styleCount = IM_ARRAYSIZE(styles);
+		if (selectedStyle < 0)
+		{
+			selectedStyle = 0;
+		}
+		else if (selectedStyle >= styleCount)
+		{
+			selectedStyle = styleCount - 1;
+		}
 
 		if (ImGui::CollapsingHeader("Gameplay Tweaks", ImGuiTreeNodeFlags_DefaultOpen))
 		{
@@ -144,7 +153,7 @@ void DMCRevamp()
 
 		if (ImGui::CollapsingHeader("Move Modifications", ImGuiTreeNodeFlags_DefaultOpen))
 		{
-			ImGui::Combo("Combat Style", &selectedStyle, styles, IM_ARRAYSIZE(styles));
+			ImGui::Combo("Combat Style", &selectedStyle, styles, styleCount);
 			ImGui::InputText("Preset Name", presetName, IM_ARRAYSIZE(presetName));
 
 			if (ImGui::Button("Apply Preset"))
@@ -182,5 +191,4 @@ void DMCRevamp()
 }
 
 #pragma endregion
-
 
