@@ -1,8 +1,10 @@
-export module GUI_DMCR;
+module;
 #include "../ThirdParty/ImGui/imgui.h"
 #include "../ThirdParty/ImGui/imgui_internal.h"
 
 #include <stdio.h>
+
+export module GUI_DMCR;
 
 import Core;
 import Core_GUI;
