@@ -1,8 +1,9 @@
 
+
 // @Todo: default libs.
 
 
-
+require('./core.js');
 
 // #region
 
@@ -25,7 +26,7 @@ const PATH_STB = "ThirdParty/stb";
 const LOCATION_ZLIB = "zlib.lib";
 const LOCATION_LIBZIP = "libzip.lib";
 const LOCATION_HDC = "F:/Games/Devil May Cry HD Collection Dodi";
-const LOCATION_4 = "F:/Games/Devil May Cry 4";
+const LOCATION_4 = "F:/Games/Devil May Cry 4 - Special Edition";
 const LOCATION_LOADER_X86_64 = LOCATION_HDC + "/dinput8.dll";
 const LOCATION_LOADER_X86_32 = LOCATION_4 + "/dinput8.dll";
 const LOCATION_EVA = LOCATION_HDC + "/Eva.dll";
@@ -107,7 +108,7 @@ function LoadConfig() {
 
 const VISUAL_STUDIO_YEAR = "2022";
 const VISUAL_STUDIO_EDITION = "Enterprise";
-const VISUAL_STUDIO_PATH = "D:/Programs/Visual Studio 2022 Enterprise";
+const VISUAL_STUDIO_PATH = "D:/Programs/VSBuildTools/";
 
 
 /*
@@ -208,11 +209,66 @@ function SetEnv_Feed(names) {
 }
 
 function SetEnv(name) {
+	// If INCLUDE and LIB are set, we may already have a VS environment loaded.
+	// If architecture matches, skip. If it doesn't match, invoke vcvarsall.bat
+	// for the requested architecture and import the resulting environment.
+	if (process.env.INCLUDE && process.env.LIB && process.env.INCLUDE.length > 0 && process.env.LIB.length > 0) {
+		let currentPath = process.env.PATH || "";
+		let hasX64 = currentPath.includes("HostX64\\x64") || currentPath.includes("Hostx64/x64") || currentPath.includes("HostX64\\x64");
+		let hasX86 = currentPath.includes("HostX64\\x86") || currentPath.includes("Hostx64/x86");
+
+		// If current environment already matches requested arch, keep it
+		if ((name == "x86_64" && hasX64) || (name == "x86_32" && hasX86)) {
+			console.log("VS environment already loaded for " + name + ", skipping SetEnv");
+			return;
+		}
+
+		console.log("VS environment loaded but architecture mismatch, attempting to run vcvarsall for " + name);
+
+		// Try to run vcvarsall.bat for the requested architecture and capture environment
+		try {
+			const child_process = require('child_process');
+			let vsPath = VISUAL_STUDIO_PATH.replace(/\//g, "\\");
+			let vcvars = vsPath + "\\VC\\Auxiliary\\Build\\vcvarsall.bat";
+
+			let archArg = "";
+			if (name == "x86_64") {
+				archArg = "amd64"; // use amd64 to load x64 tools
+			}
+			else if (name == "x86_32") {
+				archArg = "x86"; // load 32-bit tools
+			}
+
+			if (archArg) {
+				// Run vcvarsall and output environment using cmd /c "... && set"
+				let cmd = 'cmd.exe /c "\"' + vcvars + '\" ' + archArg + ' && set"';
+				let out = child_process.execSync(cmd, { encoding: 'utf8' });
+
+				// Parse environment lines and set them in process.env
+				let lines = out.split(/\r?\n/);
+				for (let i = 0; i < lines.length; i++) {
+					let line = lines[i];
+					let m = line.match(/^(.*?)=(.*)$/);
+					if (m) {
+						let key = m[1];
+						let val = m[2];
+						process.env[key] = val;
+					}
+				}
+
+				console.log("vcvarsall imported environment for " + archArg);
+				return;
+			}
+		}
+		catch (error) {
+			// If running vcvarsall fails, fall through to set hardcoded paths below
+			console.log("vcvarsall import failed: " + error.message);
+		}
+	}
+
 	let path = "";
 	let include = "";
 	let lib = "";
-
-
 
 	if (name == "x86_64") {
 		path = SetEnv_Feed(pathLocations_x86_64);
@@ -1364,6 +1420,7 @@ let compilerArgs_x86_32 =
 	[
 		"/nologo",
 		"/c",
+		"/MP",
 		"/std:c++latest",
 		"/permissive-",
 		"/experimental:module",
@@ -1377,8 +1434,8 @@ let compilerArgs_x86_32 =
 		"/wd4996", // was declared deprecated
 		"/wd5105", // macro expansion producing 'defined' has undefined behavior
 		// "/wd5202", // a global module fragment can only contain preprocessor directives
-		"/O2",
-		"/Oi",
+		"/Od", // /02 maximize speed, official release, /0d development not optimize
+		"/Ob0", // /b0 no inline expansion
 		"/Gy",
 		"/Zi",
 		"/EHsc",
@@ -1964,7 +2021,6 @@ let helpersEva =
 			c += Tabs() + "auto & " + actorDataName + " = *reinterpret_cast<PlayerActorData *>(" + actorBaseAddrName + ");";
 
 
-
 			return false;
 		}],
 
@@ -2318,7 +2374,6 @@ let helpersMary =
 
 
 			c += Tabs() + "auto & " + actorDataName + " = *reinterpret_cast<PlayerActorData *>(" + actorBaseAddrName + ");";
-
 
 
 			return false;
@@ -2906,7 +2961,6 @@ let helpersMary =
 			c += NEW_LINE;
 
 			c += Tabs() + "auto & expData = *expDataAddr;";
-
 
 
 			return false;
@@ -4392,6 +4446,24 @@ let items =
 			BuildKyrieFull
 		],
 		[
+			"fastKyrie", function () {
+				console.log("Kyrie x86_32 (fast build)");
+				console.log("");
+
+				SetEnv("x86_32");
+
+				// Skip Clean() to preserve compiled dependencies
+				// Skip compiling Core and ImGui - assumes they were built previously
+				// Only compile and link Kyrie module
+
+				if (BuildKyrie()) {
+					return true;
+				}
+
+				return false;
+			}
+		],
+		[
 			"cleanPDBKyrie",
 			CleanPDBKyrie
 		],
@@ -4419,7 +4491,7 @@ let items =
 			"buildCleanPDBFull",
 			BuildCleanPDBFull
 		],
-
+	
 		// $ActionDataEnd
 
 
@@ -4583,10 +4655,10 @@ let items =
 					[
 						["ZLib", "x86_64", BuildZLib],
 						["LibZip", "x86_64", BuildLibZip],
-						["Loader", "x86_64", BuildLoaderFull_x86_64],
-						["Eva", "x86_64", BuildEvaFull],
-						["Lucia", "x86_64", BuildLuciaFull],
-						["Mary", "x86_64", BuildMaryFull],
+						//["Loader", "x86_64", BuildLoaderFull_x86_64],
+						//["Eva", "x86_64", BuildEvaFull],
+						//["Lucia", "x86_64", BuildLuciaFull],
+						//["Mary", "x86_64", BuildMaryFull],
 						["Loader", "x86_32", BuildLoaderFull_x86_32],
 						["Kyrie", "x86_32", BuildKyrieFull],
 					];
@@ -4642,3 +4714,4 @@ for (let itemIndex = 0; itemIndex < items.length; itemIndex++) {
 
 
 console.log("No Match");
+

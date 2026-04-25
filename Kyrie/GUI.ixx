@@ -8,7 +8,6 @@ export module GUI;
 import Core;
 import Core_GUI;
 import Core_ImGui;
-import GUI_DMCR;
 
 
 #include "../Core/Macros.h"
@@ -33,13 +32,14 @@ import Training;
 import Vars;
 import Window;
 
+import GUI_DMCR;
+
 #define debug false
 
 
 
 bool visibleMain     = false;
 bool lastVisibleMain = false;
-
 
 
 #pragma region Common
@@ -73,6 +73,9 @@ const char * buttonNames[] =
 	"Right Stick Left",
 };
 
+/**
+ *
+ */
 constexpr byte32 buttons[] =
 {
 	0,
@@ -105,15 +108,6 @@ constexpr byte32 buttons[] =
 static_assert(countof(buttons) == countof(buttonNames));
 
 
-
-
-
-
-
-
-
-
-
 const char * floorNames[] =
 {
 	"Floor 1",
@@ -131,8 +125,6 @@ const char * floorNames[] =
 
 static_assert(countof(floorNames) == 11);
 static_assert(countof(floorNames) == FLOOR::COUNT);
-
-
 
 
 const char * playerIndexNames[] =
@@ -253,13 +245,6 @@ const char * modeEnumNames[] =
 };
 
 
-
-
-
-
-
-
-
 const char * modeNames[] =
 {
 	"Human",
@@ -270,7 +255,6 @@ const char * modeNames[] =
 	"Heaven or Hell",
 	"Hell and Hell",
 };
-
 constexpr uint32 modes[] =
 {
 	MODE::HUMAN,
@@ -330,7 +314,6 @@ void Actor_PlayerTab(new_size_t playerIndex)
 }
 
 
-
 uint8 Actor_characterSwitchControllerButtonIndex = 0;
 
 
@@ -360,9 +343,6 @@ export KeyBinding characterSwitchControllerKeyBinding =
 	queuedConfig.characterSwitchControllerKeyData,
 	defaultConfig.characterSwitchControllerKeyData
 };
-
-
-
 
 
 
@@ -1348,16 +1328,6 @@ void Debug()
 
 #pragma endregion
 
-
-
-
-
-
-
-
-
-
-
 #pragma region Overlays
 
 
@@ -2113,15 +2083,6 @@ void Teleporter()
 
 #pragma endregion
 
-
-
-
-
-
-
-
-
-
 #pragma region Key Bindings
 
 
@@ -2276,24 +2237,6 @@ void KeyBindings()
 
 
 #pragma endregion
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -2454,7 +2397,6 @@ void Main()
 #pragma endregion
 
 
-
 export void GUI_Render()
 {
 	::GUI::id = 0;
@@ -2463,15 +2405,18 @@ export void GUI_Render()
 
 	Welcome();
 	Main();
+
+	DMCRevamp();
+
 	CreditsWindow();
 
-
+	
 
 	MainOverlayWindow();
 
 	Bars();
 
-	DMCRevamp();
+
 
 
 	HandleKeyBindings
