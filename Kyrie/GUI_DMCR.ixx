@@ -125,7 +125,7 @@ void DMCRevamp()
 		static int maxEnemyCount = 3;
 		static char presetName[64] = "Default";
 
-		const char * styles[]
+		const char* styles[]
 		{
 			"Balanced",
 			"Aggressive",
@@ -191,4 +191,3 @@ void DMCRevamp()
 }
 
 #pragma endregion
-
