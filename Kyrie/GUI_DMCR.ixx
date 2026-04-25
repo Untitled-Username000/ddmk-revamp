@@ -47,7 +47,7 @@ void CloseDMCRevamp() {
     visibleDMCRevamp = false;
 }
 
-void ToggleDMCRevamp() {
+export void ToggleDMCRevamp() {
     DebugLogFunction();
     visibleDMCRevamp = !visibleDMCRevamp;
 }

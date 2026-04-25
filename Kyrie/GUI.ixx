@@ -40,6 +40,8 @@ import GUI_DMCR;
 
 bool visibleMain     = false;
 bool lastVisibleMain = false;
+bool visibleDMCRevamp = false;
+bool lastVisibleDMCRevamp = false;
 
 
 #pragma region Common
@@ -1823,7 +1825,7 @@ void System()
 		TooltipHelper
 		(
 			"(?)",
-			"Toggle Show Main"
+			"Toggle DMC Revamp"
 		);
 
 		ImGui::PopItemWidth();
@@ -2152,11 +2154,11 @@ void MoveToMainActor()
 export KeyBinding keyBindings[] =
 {
 	{
-		"Toggle Show Main",
+		"Toggle DMC Revamp",
 		activeConfig.keyData[0],
 		queuedConfig.keyData[0],
 		defaultConfig.keyData[0],
-		ToggleShowMain,
+		ToggleDMCRevamp,
 		KeyFlags_AtLeastOneKey
 	},
 	{
