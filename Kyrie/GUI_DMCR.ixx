@@ -114,37 +114,63 @@ void DMCRevamp()
 
 		ImGui::PushItemWidth(150);
 
-		// Your DMC Revamp content here
 		ImGui::Text("DMC Revamp Settings");
+		ImGui::Separator();
 		ImGui::Text("");
 
-		// Example: Add collapsing headers for different sections
-		if (ImGui::CollapsingHeader("Gameplay Tweaks"))
+		static bool enablePracticeMode = false;
+		static bool infiniteGauge = false;
+		static int selectedStyle = 0;
+		static float enemySpeedScale = 1.0f;
+		static int maxEnemyCount = 3;
+		static char presetName[64] = "Default";
+
+		const char * styles[]
 		{
-			ImGui::Text("");
+			"Balanced",
+			"Aggressive",
+			"Defensive",
+			"Arcade"
+		};
 
-			// Add your gameplay settings
-			// Example:
-			// GUI_Checkbox2("Enable Feature", activeConfig.feature, queuedConfig.feature);
-
+		if (ImGui::CollapsingHeader("Gameplay Tweaks", ImGuiTreeNodeFlags_DefaultOpen))
+		{
+			ImGui::Checkbox("Enable Practice Mode", &enablePracticeMode);
+			ImGui::Checkbox("Infinite Gauge", &infiniteGauge);
+			ImGui::SliderFloat("Enemy Speed Scale", &enemySpeedScale, 0.25f, 2.0f, "%.2fx");
+			ImGui::SliderInt("Max Enemy Count", &maxEnemyCount, 1, 10);
 			ImGui::Text("");
 		}
 
-		if (ImGui::CollapsingHeader("Move Modifications"))
+		if (ImGui::CollapsingHeader("Move Modifications", ImGuiTreeNodeFlags_DefaultOpen))
 		{
-			ImGui::Text("");
+			ImGui::Combo("Combat Style", &selectedStyle, styles, IM_ARRAYSIZE(styles));
+			ImGui::InputText("Preset Name", presetName, IM_ARRAYSIZE(presetName));
 
-			// Add your move mods here
+			if (ImGui::Button("Apply Preset"))
+			{
+				ImGui::OpenPopup("Preset Applied");
+			}
+
+			if (ImGui::BeginPopupModal("Preset Applied", nullptr, ImGuiWindowFlags_AlwaysAutoResize))
+			{
+				ImGui::Text("Preset '%s' applied.", presetName);
+				ImGui::Text("");
+				if (ImGui::Button("OK", ImVec2(120, 0)))
+				{
+					ImGui::CloseCurrentPopup();
+				}
+				ImGui::EndPopup();
+			}
 
 			ImGui::Text("");
 		}
 
 		if (ImGui::CollapsingHeader("Advanced Settings"))
 		{
-			ImGui::Text("");
-
-			// Add advanced settings
-
+			ImGui::Text("Window visible: %s", visibleDMCRevamp ? "Yes" : "No");
+			ImGui::Text("Current style: %s", styles[selectedStyle]);
+			ImGui::Text("Use this section for debug or expert options.");
 			ImGui::Text("");
 		}
 
@@ -156,6 +182,5 @@ void DMCRevamp()
 }
 
 #pragma endregion
-
 
 
