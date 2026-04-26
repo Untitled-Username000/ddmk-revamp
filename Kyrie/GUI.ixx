@@ -36,13 +36,8 @@ import GUI_DMCR;
 
 #define debug false
 
-
-
-bool visibleMain     = false;
+bool visibleMain = false;
 bool lastVisibleMain = false;
-bool visibleDMCRevamp = false;
-bool lastVisibleDMCRevamp = false;
-
 
 #pragma region Common
 

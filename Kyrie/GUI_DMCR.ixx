@@ -34,10 +34,8 @@ import Window;
 
 #define debug false
 
-bool visibleMain;
-bool lastVisibleMain;
-bool visibleDMCRevamp;
-bool lastVisibleDMCRevamp;
+export bool visibleDMCRevamp = false;
+export bool lastVisibleDMCRevamp = false;
 
 #pragma region DMCRMain
 
