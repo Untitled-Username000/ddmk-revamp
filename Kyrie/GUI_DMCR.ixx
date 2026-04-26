@@ -67,9 +67,9 @@ export void DMCRevamp() {
         ImGui::SetNextWindowSize(ImVec2(width, height));
 
         if constexpr (debug) {
-            ImGui::SetNextWindowPos(ImVec2(((g_renderSize.x - width) / 2), 100));
+            ImGui::SetNextWindowPos(ImVec2(((g_renderSize.x - width) / 2) + 600, 100)); 
         } else {
-            ImGui::SetNextWindowPos(ImVec2(620, 0));
+            ImGui::SetNextWindowPos(ImVec2(((g_renderSize.x - width) / 2) + 600, 100)); 
         }
     }
 

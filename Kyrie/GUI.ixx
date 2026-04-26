@@ -2143,25 +2143,6 @@ void MoveToMainActor()
 	}
 }
 
-void ToggleShowMainAndDMCRevamp()
-{
-	DebugLogFunction();
-
-	bool open = !(g_showMain || visibleDMCRevamp);
-
-	if (open)
-	{
-		OpenMain();
-		visibleDMCRevamp = true;
-	}
-	else
-	{
-		CloseMain();
-		visibleDMCRevamp = false;
-	}
-}
-
-
 
 
 export KeyBinding keyBindings[] =
